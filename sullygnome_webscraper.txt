@@ -21,6 +21,7 @@ def scrape_name(name):
 		if (hold_r != None):
 			if(hold_r.find("div",{"class":"InfoPanelCellImageText"}).text == "Core"):
 				return(r.find_all("div",{"class":"InfoPanelCombinedRowCell"})[0].text)
+	return 0		
 		
 		
 def scrape_list(names_list):
