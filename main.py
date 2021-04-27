@@ -1,0 +1,1 @@
+#Main affiliate tabulation script
