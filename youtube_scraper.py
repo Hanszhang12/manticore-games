@@ -13,10 +13,16 @@ def youtubeViews(input):
 			for url in video:
 				url = url.split(" ")
 				for link in url:
-					if link[0:5] == 'https':
-						soup = BeautifulSoup(requests.get(link).text, 'lxml')
-						views.append(soup.find(itemprop="interactionCount")['content'])
+					output = scrape(link)
+					if output:
+						views.append(output)
 	return views
+
+def scrape(link):
+	if link[0:5] == 'https':
+		soup = BeautifulSoup(requests.get(link).text, 'lxml')
+		return soup.find(itemprop="interactionCount")['content']
+	return None
 
 ##test
 monthlyResponses = "Core_Affiliate_February.csv"
