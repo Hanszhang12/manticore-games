@@ -44,3 +44,4 @@ account_VerificationsDf = account_VerificationsDf[['Account Creates', 'Account V
 finalDf = finalDf.merge(account_VerificationsDf, how = 'inner', left_on = 'Core Username', right_on = 'UTM Campaign')
 # %%
 finalDf.head()
+# %%
