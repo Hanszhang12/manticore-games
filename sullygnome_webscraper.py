@@ -24,9 +24,9 @@ def scrape_name(name):
     table = more_soup.find("table", {"id":"tblControl"}).find("tbody").find_all("tr")
     for row in table:
         tds = row.find_all("td")
-        if (tds[1].contents[0].contents[0]["data-gamename"]=="Core"):
+        if (len(tds)>4 and tds[1].contents[0].contents[0]["data-gamename"]=="Core"):
             return (tds[2].text, tds[4].text)
-		
+	return "0 hrs", "0"	
 		
 def scrape_list(names_list):
 	
