@@ -14,6 +14,7 @@ acceptedTab = "Core_Affiliate_Tabulation_Accepted.csv"
 bitlyClicks = "Core_Bitly.csv"
 monthlyResponses = "Core_Affiliate_February.csv"
 account_Verifications = "Account_Verifies.csv"
+youtubeLinks = "Youtube_Links.csv"
 
 
 ## Beginning of dataframe creation
@@ -23,7 +24,7 @@ acceptedTabDf = pd.read_csv("inputs/"  + acceptedTab)
 bitlyClicksDf = pd.read_csv("inputs/" + bitlyClicks)
 monthlyResponsesDf = pd.read_csv("inputs/" + monthlyResponses)
 account_VerificationsDf = pd.read_csv("inputs/" + account_Verifications)
-
+youtubeDf = pd.read_csv("inputs/" + youtubeLinks)
 
 # %%
 # Extracts required columns from acceptedTab
@@ -42,6 +43,12 @@ account_VerificationsDf['UTM Campaign'] = usernames
 account_VerificationsDf = account_VerificationsDf.groupby('UTM Campaign').agg(sum)
 account_VerificationsDf = account_VerificationsDf[['Account Creates', 'Account Verifies', 'Session Starts First', 'Game Plays First', 'Game Creates First']]
 finalDf = finalDf.merge(account_VerificationsDf, how = 'inner', left_on = 'Core Username', right_on = 'UTM Campaign')
+
+# Clean Youtube Links and add to data frame
+youtubeDf.rename(columns={'If your primary platform is YouTube, please link all new Core videos for the month of February below. ': 'Links'}, inplace=True)
+youtubeDf = youtubeDf[['Core Usernames', 'Links']]
+finalDf = finalDf.merge(youtubeDf, how = 'left', left_on = 'Core Username', right_on = 'Core Usernames')
+
 # %%
-finalDf.head()
+# finalDf.head()
 # %%
