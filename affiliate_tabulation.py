@@ -8,7 +8,7 @@ import time
 chromedriver = r"./chromedriver.exe"
 os.environ["webdriver.chrome.driver"] = chromedriver
 driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.get("https://sullygnome.com/channel/{}/30".format("mtgnerdgirl"))
+driver.get("https://sullygnome.com/channel/{}/30".format("lana_lux"))
 driver.find_element_by_xpath("//*[@id=\"divtoplinkcontainer\"]/div[2]").click()
 time.sleep(0.5)
 
