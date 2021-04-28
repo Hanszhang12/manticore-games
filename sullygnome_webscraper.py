@@ -16,9 +16,17 @@ def scrape_name(name):
 		hold_r = r.find("div",{"class":"InfoPanelCombinedRowCellMedium InfoPanelCombineFirst"})
 		if (hold_r != None):
 			if(hold_r.find("div",{"class":"InfoPanelCellImageText"}).text == "Core"):
-
-				return(r.find_all("div",{"class":"InfoPanelCombinedRowCell"})[0].text)
-			
+				return (r.find_all("div",{"class":"InfoPanelCombinedRowCell"})[0].text), ((r.find_all("div",{"class":"InfoPanelCombinedRowCell"})[2].text)
+	driver.find_element_by_xpath("//*[@id="combinedPanel"]/div/div[3]/a").click()
+    time.sleep(0.1)
+    
+    more_soup = BeautifulSoup(driver.page_source, "html.parser")
+    table = more_soup.find_all("table", {"id":"tblControl"})
+    for row in table:
+        hold_row = row.find("div", {"class:":"RelatedLinksItemMediumCell"})
+        if (hold_row != None and hold_row.find("a",{"data-gamename","Core"}) != None)
+            return row.find_all("td")[1].text, row.find_all("td")[3].text
+    return "0 hrs", "0"    
 		
 		
 def scrape_list(names_list):
