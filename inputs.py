@@ -28,7 +28,7 @@ youtubeDf = pd.read_csv("inputs/" + youtubeLinks)
 
 # %%
 # Extracts required columns from acceptedTab
-finalDf = acceptedTabDf[['Name', 'Core Username', 'Email Address', 'Team Name', 'Stats Link']]
+finalDf = acceptedTabDf[['Name', 'Core Username', 'Looker ID', 'Email Address', 'Team Name', 'Stats Link']]
 
 # %%
 # Extracts Referral Clicks
@@ -37,12 +37,10 @@ finalDf = finalDf.merge(bitlyClicksDf, how = "inner", left_on = "Core Username",
 
 # %%
 # Cleans up Accounts Verified and adds it to the data frame
-
-usernames = account_VerificationsDf['UTM Campaign'].str.split('_', expand = True)[1]
-account_VerificationsDf['UTM Campaign'] = usernames
 account_VerificationsDf = account_VerificationsDf.groupby('UTM Campaign').agg(sum)
 account_VerificationsDf = account_VerificationsDf[['Account Creates', 'Account Verifies', 'Session Starts First', 'Game Plays First', 'Game Creates First']]
-finalDf = finalDf.merge(account_VerificationsDf, how = 'inner', left_on = 'Core Username', right_on = 'UTM Campaign')
+finalDf = finalDf.merge(account_VerificationsDf, how = 'left', left_on = 'Looker ID', right_on = 'UTM Campaign')
+
 
 # Clean Youtube Links and add to data frame
 youtubeDf.rename(columns={'If your primary platform is YouTube, please link all new Core videos for the month of February below. ': 'Links'}, inplace=True)
@@ -50,5 +48,4 @@ youtubeDf = youtubeDf[['Core Usernames', 'Links']]
 finalDf = finalDf.merge(youtubeDf, how = 'left', left_on = 'Core Username', right_on = 'Core Usernames')
 
 # %%
-# finalDf.head()
 # %%
