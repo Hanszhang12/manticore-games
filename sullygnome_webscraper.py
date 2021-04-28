@@ -5,8 +5,8 @@ import pandas as pd
 import os
 import time
 
-def scrape_name(name):
-	driver.get("https://sullygnome.com/channel/{}/30".format(name))
+def scrape_name(name, driver):
+	driver.get(name + '/30')
 	driver.find_element_by_xpath("//*[@id=\"divtoplinkcontainer\"]/div[2]").click()
 	time.sleep(0.5)
 
@@ -16,8 +16,9 @@ def scrape_name(name):
 		hold_r = r.find("div",{"class":"InfoPanelCombinedRowCellMedium InfoPanelCombineFirst"})
 		if (hold_r != None):
 			if(hold_r.find("div",{"class":"InfoPanelCellImageText"}).text == "Core"):
-				return (r.find_all("div",{"class":"InfoPanelCombinedRowCell"})[0].text), ((r.find_all("div",{"class":"InfoPanelCombinedRowCell"})[2].text)
-	driver.find_element_by_xpath("//*[@id=\"combinedPanel\"]/div/div[3]/a").click()
+				return (r.find_all("div",{"class":"InfoPanelCombinedRowCell"})[0].text), (r.find_all("div",{"class":"InfoPanelCombinedRowCell"})[2].text)
+	
+    driver.find_element_by_xpath("//*[@id=\"combinedPanel\"]/div/div[3]/a").click()
     time.sleep(0.1)
     
     more_soup = BeautifulSoup(driver.page_source, "html.parser")
@@ -34,8 +35,10 @@ def scrape_list(names_list):
 	os.environ["webdriver.chrome.driver"] = chromedriver
 	driver = webdriver.Chrome(ChromeDriverManager().install())
 	
-	results = []
+	views, hours = [], []
 	for n in names_list:
-		results.append(scrape_name(n))
+		v, h = scrape_name(n, driver)
+		views.append(v)
+		hours.append(h)
 	driver.close()
-	return results
+	return views, hours
