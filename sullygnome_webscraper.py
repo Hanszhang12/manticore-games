@@ -14,8 +14,7 @@ def scrape_name(name, driver):
 	results = soup.find_all("div",{"class":["InfoPanelCombinedRow","InfoPanelCombinedRowAlt"]})
 	for r in results:
 		hold_r = r.find("div",{"class":"InfoPanelCombinedRowCellMedium InfoPanelCombineFirst"})
-		if (hold_r != None):
-			if(hold_r.find("div",{"class":"InfoPanelCellImageText"}).text == "Core"):
+		if (hold_r != None and hold_r.find("div",{"class":"InfoPanelCellImageText"}).text == "Core"):
 				return (r.find_all("div",{"class":"InfoPanelCombinedRowCell"})[0].text), (r.find_all("div",{"class":"InfoPanelCombinedRowCell"})[2].text)
 	
     driver.find_element_by_xpath("//*[@id=\"combinedPanel\"]/div/div[3]/a").click()
