@@ -5,7 +5,11 @@ from inputs import finalDf
 import sullygnome_webscraper
 import youtube_scraper
 
-def youtube_Tier(views) :
+# Put the usernames of people who you would like to ignore in this list
+IGNORE = []
+
+# Determines the tier of a youtuber based on their views
+def youtube_Tier(views):
     tiers = []
     cash = []
     for v in views:
@@ -26,7 +30,8 @@ def youtube_Tier(views) :
             cash.append(0)
     return tiers, cash
 
-def twitch_tier(views) :
+# Determines the tier of a twitch streamer based on their views
+def twitch_tier(views):
     tiers = []
     cash = []
     for v in views:
@@ -57,7 +62,6 @@ twitchDf = twitchDf[['Name', 'Core Username',	'Email Address', 'Tier', 'Cash Rew
 twitchDf['Total Cash Reward'] = twitchDf['Cash Reward'] + 2 * twitchDf['Referral Account Creation']
 twitchDf['Account Creation Percentage'] = twitchDf['Referral Clicks'] / twitchDf['Referral Signups']
 twitchDf['Verification Percentage'] = twitchDf['Referral Signups'] / twitchDf['Referral Account Creation']
-twitchDf.to_csv("outputs/twitch_affiliate_data.csv")
 
 youtubeDf = finalDf[finalDf['Team Name'] == 'Team YouTube']
 youtubeDf['Monthly Videos'], youtubeDf['Monthly Views'] = youtube_scraper.youtubeViews(youtubeDf['Links'])
@@ -67,4 +71,6 @@ youtubeDf = youtubeDf[['Name', 'Core Username',	'Email Address', 'Tier', 'Cash R
 youtubeDf['Total Cash Reward'] = youtubeDf['Cash Reward'] + 2 * youtubeDf['Referral Account Creation']
 youtubeDf['Account Creation Percentage'] = youtubeDf['Referral Clicks'] / youtubeDf['Referral Signups']
 youtubeDf['Verification Percentage'] = youtubeDf['Referral Signups'] / youtubeDf['Referral Account Creation']
+
+twitchDf.to_csv("outputs/twitch_affiliate_data.csv")
 youtubeDf.to_csv("outputs/youtube_affiliate_data.csv")
