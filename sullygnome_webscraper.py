@@ -7,6 +7,8 @@ import time
 
 def scrape_name(name, driver):
     driver.get(name + '/30')
+    if (driver.current_url == "https://sullygnome.com/"):
+        return "-1 hrs", "-1"
     driver.find_element_by_xpath("//*[@id=\"divtoplinkcontainer\"]/div[2]").click()
     time.sleep(0.5)
 
