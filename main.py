@@ -87,6 +87,9 @@ twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Stats Link'] = '?'
 twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Referral Clicks'] = '?'
 twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Referral Signups'] = '?'
 twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Referral Account Creation'] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Total Cash Reward'] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Account Creation Percentage'] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Verification Percentage'] = '?'
 
 youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Tier'] = '?'
 youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Cash Reward'] = '?'
@@ -96,6 +99,9 @@ youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Stats Link'] = '?'
 youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Referral Clicks'] = '?'
 youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Referral Signups'] = '?'
 youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Referral Account Creation'] = '?'
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Total Cash Reward'] = '?'
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Account Creation Percentage'] = '?'
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Verification Percentage'] = '?'
 
 twitchDf.to_csv("outputs/twitch_affiliate_data.csv")
 youtubeDf.to_csv("outputs/youtube_affiliate_data.csv")
