@@ -12,7 +12,6 @@ import numpy as np
 
 acceptedTab = "Core_Affiliate_Tabulation_Accepted.csv" 
 bitlyClicks = "Core_Bitly.csv"
-monthlyResponses = "Core_Affiliate_February.csv"
 account_Verifications = "Account_Verifies.csv"
 youtubeLinks = "Youtube_Links.csv"
 
@@ -22,7 +21,6 @@ youtubeLinks = "Youtube_Links.csv"
 #Reading CSV
 acceptedTabDf = pd.read_csv("inputs/"  + acceptedTab)
 bitlyClicksDf = pd.read_csv("inputs/" + bitlyClicks)
-monthlyResponsesDf = pd.read_csv("inputs/" + monthlyResponses)
 account_VerificationsDf = pd.read_csv("inputs/" + account_Verifications)
 youtubeDf = pd.read_csv("inputs/" + youtubeLinks)
 
@@ -43,6 +41,7 @@ finalDf = finalDf.merge(account_VerificationsDf, how = 'left', left_on = 'Looker
 
 
 # Clean Youtube Links and add to data frame
+# Replace the area before : 'Links' with the column name
 youtubeDf.rename(columns={'If your primary platform is YouTube, please link all new Core videos for the month of February below. ': 'Links'}, inplace=True)
 youtubeDf = youtubeDf[['Core Usernames', 'Links']]
 finalDf = finalDf.merge(youtubeDf, how = 'left', left_on = 'Core Username', right_on = 'Core Usernames')
