@@ -6,7 +6,7 @@ import sullygnome_webscraper
 import youtube_scraper
 
 # Put the usernames of people who you would like to ignore in this list
-IGNORE = []
+IGNORE = ['Morticai']
 
 # Determines the tier of a youtuber based on their views
 def youtube_Tier(views):
@@ -71,6 +71,31 @@ youtubeDf = youtubeDf[['Name', 'Core Username',	'Email Address', 'Tier', 'Cash R
 youtubeDf['Total Cash Reward'] = youtubeDf['Cash Reward'] + 2 * youtubeDf['Referral Account Creation']
 youtubeDf['Account Creation Percentage'] = youtubeDf['Referral Clicks'] / youtubeDf['Referral Signups']
 youtubeDf['Verification Percentage'] = youtubeDf['Referral Signups'] / youtubeDf['Referral Account Creation']
+
+# for user in IGNORE:
+#     twitchUser = twitchDf[twitchDf['Core Username'] == user]
+#     if twitchUser.size > 0:
+#         twitchUser['Tier', 'Cash Reward', 'Monthly Videos', 'Monthly Views', 'Referral Clicks', 'Referral Signups', 'Referral Account Creation'] = [['?']] * 7
+#     ytUser = youtubeDf[youtubeDf['Core Username'] == user]
+#     if ytUser.size > 0:
+#         ytUser[3] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Tier'] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Cash Reward'] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Monthly Hours'] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Monthly Average Viewers'] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Stats Link'] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Referral Clicks'] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Referral Signups'] = '?'
+twitchDf.loc[twitchDf['Core Username'].isin(IGNORE), 'Referral Account Creation'] = '?'
+
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Tier'] = '?'
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Cash Reward'] = '?'
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Monthly Videos'] = '?'
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Monthly Views'] = '?'
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Stats Link'] = '?'
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Referral Clicks'] = '?'
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Referral Signups'] = '?'
+youtubeDf.loc[youtubeDf['Core Username'].isin(IGNORE), 'Referral Account Creation'] = '?'
 
 twitchDf.to_csv("outputs/twitch_affiliate_data.csv")
 youtubeDf.to_csv("outputs/youtube_affiliate_data.csv")
