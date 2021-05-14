@@ -47,8 +47,8 @@ finalDf = finalDf.merge(account_VerificationsDf, how = 'left', left_on = 'Looker
 # Clean Youtube Links and add to data frame
 # Replace the area before : 'Links' with the column name
 youtubeDf.rename(columns={'If your primary platform is YouTube, please link all new Core videos for the month below. ': 'Links'}, inplace=True)
-youtubeDf = youtubeDf[['Core Usernames', 'Links']]
-finalDf = finalDf.merge(youtubeDf, how = 'left', left_on = 'Core Username', right_on = 'Core Usernames')
+youtubeDf = youtubeDf[['Core Username', 'Links']]
+finalDf = finalDf.merge(youtubeDf, how = 'left', left_on = 'Core Username', right_on = 'Core Username')
 
 # %%
 # %%
