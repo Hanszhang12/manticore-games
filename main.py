@@ -55,8 +55,14 @@ def twitch_tier(views):
 
 
 twitchDf = finalDf[finalDf['Team Name'] == 'Team Twitch']
-twitchDf['Monthly Hours'], twitchDf['Monthly Average Viewers'] = sullygnome_webscraper.scrape_list(twitchDf['Stats Link'])
-twitchDf['Tier'], twitchDf['Cash Reward'] = twitch_tier(twitchDf['Monthly Hours'])
+hours, viewers = sullygnome_webscraper.scrape_list(twitchDf['Stats Link'])
+twitchDf['Monthly Hours'] = hours
+twitchDf['Monthly Average Viewers'] = viewers
+#twitchDf['Monthly Hours'], twitchDf['Monthly Average Viewers'] = sullygnome_webscraper.scrape_list(twitchDf['Stats Link'])
+tiers, cash = twitch_tier(twitchDf['Monthly Hours'])
+twitchDf['Tier'] = tiers
+twitchDf['Cash Reward'] = cash
+#twitchDf['Tier'], twitchDf['Cash Reward'] = twitch_tier(twitchDf['Monthly Hours'])
 twitchDf.rename(columns={"Account Creates":"Referral Signups", "Account Verifies":"Referral Account Creation"}, inplace=True)
 twitchDf = twitchDf[['Name', 'Core Username',	'Email Address', 'Tier', 'Cash Reward',	'Monthly Hours', 'Monthly Average Viewers', 'Stats Link', 'Referral Clicks', 'Referral Signups', 'Referral Account Creation']]
 twitchDf['Total Cash Reward'] = twitchDf['Cash Reward'] + 2 * twitchDf['Referral Account Creation']
